@@ -26,9 +26,6 @@ html,
     flex-direction: column;
     justify-content: space-around;
     transition: all 0.3s ease;
-
- 
-
 }
 
 .body-light{
@@ -360,7 +357,7 @@ transition: all 0.3s ease;
             margin: 10px 0;
         }
         .body{
-            justify-content: space-between;
+            justify-content: space-around;
         }
 }
 
@@ -390,7 +387,7 @@ transition: all 0.3s ease;
         }
         .input{
             width: 95%;
-          
+          height: 70px;
         }
         .title{
             width: 95%;
@@ -407,7 +404,8 @@ transition: all 0.3s ease;
         }
         .input{
             width: 99%;
-          
+            height: 60px;
+          margin: 0;
         }
         .title{
             width: 99%;
