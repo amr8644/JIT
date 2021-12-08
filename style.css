@@ -46,6 +46,7 @@ transition: all 0.3s ease;
    display: flex;
    align-items: center;
    justify-content: flex-end;
+ 
 }
 
 .title{
@@ -81,12 +82,23 @@ transition: all 0.3s ease;
     background-size: cover;
     transition: all 0.3s ease;
 }
+::-webkit-scrollbar {
+  height: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 40px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--Red);
+    border-radius: 30px;
+  }
 
 .txt{
     color: var(--text);
     font-size: 32px;
     font-weight: 700;
     padding: 10px 30px;
+    overflow-x: auto;
 }
 
 .parent {
