@@ -13,3 +13,8 @@ Thanks for checking out this front-end coding challenge.
 ## Author
 
 Amr A. Ashebo
+
+##Technologies Used
+-HTML <br>
+-CSS <br>
+-JavaScript <br>
