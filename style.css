@@ -380,7 +380,7 @@ transition: all 0.3s ease;
         }
 }
 
-@media screen and (max-width:450px){
+@media screen and (max-width:500px){
     .parent {
         width: 95%;
         place-content: center;
@@ -397,7 +397,7 @@ transition: all 0.3s ease;
         }
 }
 
-@media screen and (max-width:350px){
+@media screen and (max-width:400px){
     .parent {
         width: 99%;
         place-content: center;
