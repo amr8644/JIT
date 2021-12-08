@@ -357,7 +357,7 @@ transition: all 0.3s ease;
             margin: 10px 0;
         }
         .body{
-            justify-content: space-around;
+            justify-content: space-evenly;
         }
 }
 
