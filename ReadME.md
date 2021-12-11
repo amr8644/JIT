@@ -15,6 +15,7 @@ Thanks for checking out this front-end coding challenge.
 Amr A. Ashebo
 
 ## Technologies Used <br>
+
 -HTML <br>
 -CSS <br>
 -JavaScript <br>

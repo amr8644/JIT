@@ -3,15 +3,12 @@
 let btn = [...document.querySelectorAll("#btn")];
 const txt = document.querySelector(".txt");
 const lightMode = document.querySelector(".light-mode");
-const body = document.querySelector(".body")
+const body = document.querySelector(".body");
 
-lightMode.addEventListener("click" , () =>{
+lightMode.addEventListener("click", () => {
   lightMode.classList.toggle("dark-mode");
   body.classList.toggle("body-light");
 });
-
-
-
 
 btn.map((button) => {
   button.addEventListener("click", (e) => {
