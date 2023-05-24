@@ -1,4 +1,6 @@
+#include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "lexer.h"
@@ -33,4 +35,29 @@ char *skip() {
     c = next();
   }
   return (c);
+}
+
+int scan(struct token *t) {
+  char *c;
+  c = skip();
+
+  switch (*c) {
+  case EOF:
+    return 0;
+  case '=':
+    t->type = T_EQUAL;
+    break;
+  case '"':
+    t->type = T_COMMA;
+    break;
+  }
+
+  if (strcmp(c, "add") == 0)
+    t->type = T_ADD;
+  if (strcmp(c, "to") == 0)
+    t->type = T_TO;
+  if (strcmp(c, "print") == 0)
+    t->type = T_PRINT;
+
+  return 0;
 }

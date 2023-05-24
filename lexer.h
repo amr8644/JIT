@@ -7,17 +7,16 @@
 extern FILE *fp;
 // Token Structure
 struct token {
-    int token;
-    char *value;
+  unsigned int type; // type of the token
+  unsigned int pos;  // or offset (offset inside the file)
 };
 
 // Tokens
-enum {
-  T_EQUAL, T_ADD, T_PRINT, T_TO, T_VAR, T_COMMA,T_STRING,T_A
-};
+enum { T_NULL, T_EQUAL, T_ADD, T_PRINT, T_TO, T_VAR, T_COMMA, T_STRING, T_A };
 
 char *next();
-void run_file(char * file);
+char *skip();
+int scan(struct token *t);
+void run_file(char *file);
 
 #endif // !
-
