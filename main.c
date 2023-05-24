@@ -5,20 +5,12 @@
 
 int main(int argc, char *argv[]) {
 
-  FILE *fp;
 
   if (argc != 2) {
     printf("Usage: rune [script]\n");
     return -1;
   }
 
-  fp = fopen(argv[1], "r");
-  if (fp == NULL) {
-    perror("Error in opening file");
-    return (-1);
-  }
-
-  next();
-
+  char *str = read_file(argv[1]);
   return 0;
 }

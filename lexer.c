@@ -8,56 +8,63 @@
 int line = 0;
 char *_put_back = "";
 
-char *next() {
+char *read_file(const char *path) {
+  FILE *file = fopen(path, "rb");
 
-  char *buffer;
-  int i, ch;
-
-  for (i = 0;
-       (i < (sizeof(buffer) - 1) && ((ch = fgetc(fp)) != EOF) && (ch != '\n'));
-       i++) {
-    buffer[i] = ch;
+  if (file == NULL) {
+    fprintf(stderr, "Could not open file \"%s\".\n", path);
+    exit(74);
   }
 
-  buffer[i] = '\0';
+  fseek(file, 0L, SEEK_END);
+  long file_size = ftell(file);
+  fseek(file, 0, SEEK_SET);
 
-  if (fclose(fp))
-    perror("fclose error");
+  char *buffer = (char *)malloc(file_size + 1);
 
+  if (buffer == NULL) {
+    fprintf(stderr, "Not enough memory to read \"%s\".\n", path);
+    exit(74);
+  }
+
+  size_t bytes_read = fread(buffer, sizeof(char), file_size, file);
+
+  if (bytes_read < file_size) {
+    fprintf(stderr, "Could not read file \"%s\".\n", path);
+    exit(74);
+  }
+
+  buffer[bytes_read] = '\0';
+
+  fclose(file);
   return buffer;
 }
 
-char *skip() {
-  char *c;
-
-  c = next();
-  while (' ' == c || '\t' == c || '\n' == c || '\r' == c || '\f' == c) {
-    c = next();
-  }
-  return (c);
+ char *skip(char *str) {
+  while (*str != '\t' || *str != '\n' || *str != '\r')
+    str++;
+  return str;
 }
 
-int scan(struct token *t) {
-  char *c;
-  c = skip();
-
-  switch (*c) {
-  case EOF:
-    return 0;
+ char *scan(char *str, struct token *token) {
+  switch (*str) {
+  case 0:
+    token->type = T_NULL;
+    break;
   case '=':
-    t->type = T_EQUAL;
+    token->type = T_EQUAL;
     break;
   case '"':
-    t->type = T_COMMA;
+    token->type = T_COMMA;
     break;
   }
 
-  if (strcmp(c, "add") == 0)
-    t->type = T_ADD;
-  if (strcmp(c, "to") == 0)
-    t->type = T_TO;
-  if (strcmp(c, "print") == 0)
-    t->type = T_PRINT;
+  if (strcmp(str, "add") == 0)
+    token->type = T_ADD;
+  if (strcmp(str, "to") == 0)
+    token->type = T_TO;
+  if (strcmp(str, "print") == 0)
+    token->type = T_PRINT;
 
-  return 0;
+  return str;
 }
