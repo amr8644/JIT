@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,31 +41,76 @@ char *read_file(const char *path) {
   return buffer;
 }
 
- char *skip(char *str) {
-  while (*str != '\t' || *str != '\n' || *str != '\r')
+char *skip(char *str) {
+  while (isspace(*str)) {
     str++;
+  }
   return str;
 }
 
- char *scan(char *str, struct token *token) {
+char *scan(char *str, struct token *token) {
+
+  static const struct {
+    char *word;
+    unsigned int type;
+
+  } key_words[] = {
+      {
+          "add",
+          T_ADD,
+      },
+
+      {
+          "print",
+          T_PRINT,
+      },
+      {
+          "to",
+          T_TO,
+      },
+
+  };
+
+  str = skip(str);
+
+  if (strncmp(str, "add", 3) == 0) {
+    token->type = T_ADD;
+    str += 3;
+    return str;
+  }
+  if (strncmp(str, "to", 2) == 0) {
+    token->type = T_TO;
+    str += 2;
+    return str;
+  }
+
+  if (strncmp(str, "print", 5) == 0) {
+    token->type = T_PRINT;
+    str += 5;
+    return str;
+  }
+
+  if (isalpha(*str)) {
+    while (isalpha(*str)) {
+      token->type = T_IDEN;
+      str++;
+    }
+    return str;
+  }
+
   switch (*str) {
   case 0:
     token->type = T_NULL;
-    break;
+    return str;
   case '=':
     token->type = T_EQUAL;
-    break;
+    str++;
+    return str;
   case '"':
     token->type = T_COMMA;
-    break;
+    str++;
+    return str;
   }
-
-  if (strcmp(str, "add") == 0)
-    token->type = T_ADD;
-  if (strcmp(str, "to") == 0)
-    token->type = T_TO;
-  if (strcmp(str, "print") == 0)
-    token->type = T_PRINT;
 
   return str;
 }
