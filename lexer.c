@@ -107,7 +107,12 @@ char *scan(char *str, struct token *token) {
     str++;
     return str;
   case '"':
-    token->type = T_COMMA;
+    token->type = T_STRING;
+    str++;
+    while(*str != '"'){
+        printf("%c",*str);
+        str++;
+    }
     str++;
     return str;
   }

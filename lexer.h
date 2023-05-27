@@ -11,7 +11,7 @@ struct token {
 };
 
 // Tokens
-enum { T_NULL, T_EQUAL, T_ADD, T_PRINT, T_TO, T_COMMA, T_IDEN};
+enum { T_NULL, T_EQUAL, T_ADD, T_PRINT, T_TO, T_STRING, T_IDEN};
 
 // Functions
 char *read_file(const char *path);

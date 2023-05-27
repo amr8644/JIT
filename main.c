@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "lexer.h"
+#include "parser.h"
 
 int main(int argc, char *argv[]) {
 
@@ -13,13 +14,16 @@ int main(int argc, char *argv[]) {
   char *str = read_file(argv[1]);
   char *start = str;
 
-  struct token token;
+  struct token token[100];
+  int n_tokens = 0;
 
   do {
-    str = scan(str, &token);
-    printf("%d\n", token.type);
-  } while (token.type != T_NULL);
 
+    str = scan(str, &token[n_tokens]);
+
+  } while (token[n_tokens] != T_NULL);
+
+  parse(token[]);
 
   return 0;
 }
