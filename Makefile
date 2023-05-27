@@ -15,4 +15,4 @@ parser.o: parser.c parser.h
 
 
 clean:
-	rm *.0
+	rm *.o
