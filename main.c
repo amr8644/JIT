@@ -4,6 +4,16 @@
 #include "lexer.h"
 #include "parser.h"
 
+// word a
+// equal sign
+// string "Hello"
+// word add
+// string " world"
+// word to
+// word a
+// word print
+// word a
+
 int main(int argc, char *argv[]) {
 
   if (argc != 2) {
@@ -20,10 +30,9 @@ int main(int argc, char *argv[]) {
   do {
 
     str = scan(str, &token[n_tokens]);
+  } while (token[n_tokens].type != T_NULL);
 
-  } while (token[n_tokens] != T_NULL);
-
-  parse(token[]);
+  parse(token[n_tokens]);
 
   return 0;
 }

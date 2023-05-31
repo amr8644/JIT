@@ -6,9 +6,6 @@
 
 #include "lexer.h"
 
-int line = 0;
-char *_put_back = "";
-
 char *read_file(const char *path) {
   FILE *file = fopen(path, "rb");
 
@@ -48,8 +45,8 @@ char *skip(char *str) {
   return str;
 }
 
-char *scan(char *str, struct token *token) {
 
+char *scan(char *str, struct token *token) {
   static const struct {
     char *word;
     unsigned int type;
@@ -110,7 +107,6 @@ char *scan(char *str, struct token *token) {
     token->type = T_STRING;
     str++;
     while(*str != '"'){
-        printf("%c",*str);
         str++;
     }
     str++;

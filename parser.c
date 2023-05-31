@@ -33,6 +33,7 @@ int parse(struct token *token) {
         break;
       }
       if (express[i].type[j] == 0) {
+        printf("%d", j);
         return j;
       }
     }
