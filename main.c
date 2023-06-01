@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 
 #include "lexer.h"
 #include "parser.h"
@@ -26,13 +27,31 @@ int main(int argc, char *argv[]) {
 
   struct token token[100];
   int n_tokens = 0;
+  int index = 0;
+  int cons = 0;
 
+  const char *list[] = {"null","equal", "add" ,"print" ,"to", "string", "iden"};
+
+  // Get the tokens from the file
   do {
 
     str = scan(str, &token[n_tokens]);
+    n_tokens++;
+
   } while (token[n_tokens].type != T_NULL);
 
-  parse(token[n_tokens]);
+  // We get syntax expressions from the token
+  do {
+
+    // Go the next set of tokens
+    index += cons;
+
+    // Gets the number of tokens of the syntax expressions
+    cons = parse((struct token *)(token + index));
+
+    printf("%d\n", cons);
+
+  } while (cons && index + cons < n_tokens);
 
   return 0;
 }

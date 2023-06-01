@@ -5,7 +5,7 @@
 struct Expressions {
   unsigned int type[5];
 } express[] = {
-    // Example
+    // Examle
     // a = "Hello World"
     {T_IDEN, T_EQUAL, T_STRING, T_NULL},
 
@@ -27,14 +27,17 @@ struct Expressions {
 
 int parse(struct token *token) {
 
-  for (size_t i = 0; i < sizeof(express) / sizeof(express[0]); i++) {
-    for (size_t j = 0; j < 5; j++) {
-      if (express[i].type[j] != token[j].type) {
-        break;
-      }
+  for (int i = 0; i < sizeof(express) / sizeof(express[0]); i++) {
+    for (int j = 0; j < 5; j++) {
       if (express[i].type[j] == 0) {
-        printf("%d", j);
         return j;
+      }
+      if (express[i].type[j] != token[j].type) {
+        printf("%d\n", j);
+        printf("Express:%d\n", express[i].type[j]);
+
+        printf("Token :%d\n", token[j].type);
+        break;
       }
     }
   }

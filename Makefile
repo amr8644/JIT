@@ -3,15 +3,15 @@ rune: main.o lexer.o parser.o
 
 
 main.o: main.c 
-	gcc -c main.c 
+	gcc -c -g main.c 
 
 
 lexer.o: lexer.c lexer.h 
-	gcc -c lexer.c
+	gcc -c -g lexer.c
 
 
 parser.o: parser.c parser.h 
-	gcc -c parser.c
+	gcc -c -g parser.c
 
 
 clean:
