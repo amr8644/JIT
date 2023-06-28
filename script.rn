@@ -1,5 +1,3 @@
-a="Hello"
+let five = "Amr"
+let ten = 12
 
-add " world" to a
-
-print a

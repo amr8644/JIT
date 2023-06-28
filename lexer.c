@@ -6,10 +6,30 @@
 
 #include "lexer.h"
 
-char *read_file(const char *path) {
+static const struct
+{
+  char *word;
+  unsigned int type;
+
+} key_words[] = {
+    {
+        "let",
+        T_LET,
+    },
+
+    {
+        "fn",
+        T_FUNCTION,
+    },
+
+};
+
+char *read_file(const char *path)
+{
   FILE *file = fopen(path, "rb");
 
-  if (file == NULL) {
+  if (file == NULL)
+  {
     fprintf(stderr, "Could not open file \"%s\".\n", path);
     exit(74);
   }
@@ -20,14 +40,16 @@ char *read_file(const char *path) {
 
   char *buffer = (char *)malloc(file_size + 1);
 
-  if (buffer == NULL) {
+  if (buffer == NULL)
+  {
     fprintf(stderr, "Not enough memory to read \"%s\".\n", path);
     exit(74);
   }
 
   size_t bytes_read = fread(buffer, sizeof(char), file_size, file);
 
-  if (bytes_read < file_size) {
+  if (bytes_read < file_size)
+  {
     fprintf(stderr, "Could not read file \"%s\".\n", path);
     exit(74);
   }
@@ -38,76 +60,106 @@ char *read_file(const char *path) {
   return buffer;
 }
 
-char *skip(char *str) {
-  while (isspace(*str)) {
+char *skip(char *str)
+{
+  while (isspace(*str))
+  {
     str++;
   }
   return str;
 }
-
-
-char *scan(char *str, struct token *token) {
-  static const struct {
-    char *word;
-    unsigned int type;
-
-  } key_words[] = {
-      {
-          "add",
-          T_ADD,
-      },
-
-      {
-          "print",
-          T_PRINT,
-      },
-      {
-          "to",
-          T_TO,
-      },
-
-  };
+int numKeywords = sizeof(key_words) / sizeof(key_words[0]);
+Token lookup_inden(char *str)
+{
+  for (int i = 0; i < numKeywords; i++)
+  {
+    if (strcmp(str, key_words[i].word) == 0)
+    {
+      return key_words[i].type;
+    }
+  }
+  return str;
+}
+char *scan(char *str, Token *token)
+{
 
   str = skip(str);
 
-  if (strncmp(str, "add", 3) == 0) {
-    token->type = T_ADD;
+  if (strncmp(str, "let", 3) == 0)
+  {
+    token->type = T_LET;
     str += 3;
     return str;
   }
-  if (strncmp(str, "to", 2) == 0) {
-    token->type = T_TO;
-    str += 2;
-    return str;
-  }
 
-  if (strncmp(str, "print", 5) == 0) {
-    token->type = T_PRINT;
-    str += 5;
-    return str;
-  }
-
-  if (isalpha(*str)) {
-    while (isalpha(*str)) {
+  if (isalpha(*str))
+  {
+    while (isalpha(*str))
+    {
       token->type = T_IDEN;
       str++;
     }
     return str;
   }
 
-  switch (*str) {
+  if (isdigit(*str))
+  {
+    while (isdigit(*str))
+    {
+      if (*str == 0)
+        break;
+      token->type = T_INT;
+      str++;
+    }
+
+    return str;
+  }
+
+  if (strncmp(str, "fn", 2) == 0)
+  {
+    token->type = T_FUNCTION;
+    str += 2;
+    return str;
+  }
+
+  switch (*str)
+  {
   case 0:
     token->type = T_NULL;
     return str;
   case '=':
-    token->type = T_EQUAL;
+    token->type = T_ASSIGN;
+    str++;
+    return str;
+  case ',':
+    token->type = T_COMMA;
+    str++;
+    return str;
+  case '{':
+    token->type = T_LBRACE;
+    str++;
+    return str;
+
+  case '}':
+    token->type = T_RBRACE;
+    str++;
+    return str;
+
+  case '(':
+    token->type = T_LPAREN;
+    str++;
+    return str;
+
+  case ')':
+    token->type = T_RPAREN;
     str++;
     return str;
   case '"':
     token->type = T_STRING;
     str++;
-    while(*str != '"'){
-        str++;
+    while (*str != '"')
+    {
+      str++;
     }
     str++;
     return str;
