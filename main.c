@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
   }
 
   char *str = read_file(argv[1]);
-  char *start = str;
 
   Token token;
+
   do
   {
     str = scan(str, &token);

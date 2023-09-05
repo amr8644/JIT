@@ -5,25 +5,6 @@
 #include <string.h>
 
 #include "lexer.h"
-
-static const struct
-{
-  char *word;
-  unsigned int type;
-
-} key_words[] = {
-    {
-        "let",
-        T_LET,
-    },
-
-    {
-        "fn",
-        T_FUNCTION,
-    },
-
-};
-
 char *read_file(const char *path)
 {
   FILE *file = fopen(path, "rb");
@@ -68,18 +49,7 @@ char *skip(char *str)
   }
   return str;
 }
-int numKeywords = sizeof(key_words) / sizeof(key_words[0]);
-Token lookup_inden(char *str)
-{
-  for (int i = 0; i < numKeywords; i++)
-  {
-    if (strcmp(str, key_words[i].word) == 0)
-    {
-      return key_words[i].type;
-    }
-  }
-  return str;
-}
+
 char *scan(char *str, Token *token)
 {
 
