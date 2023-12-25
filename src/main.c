@@ -15,14 +15,5 @@ int main(int argc, char *argv[])
 
   char *str = read_file(argv[1]);
 
-  Token token;
-
-  do
-  {
-    str = scan(str, &token);
-    printf("%d\n", token.type);
-
-  } while (token.type != T_NULL);
-
   return 0;
 }
