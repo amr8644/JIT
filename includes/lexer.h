@@ -24,7 +24,17 @@ typedef struct Token {
   char literal;
 } Token;
 
+typedef struct Lexer {
+  char *input;
+  unsigned int position;
+  unsigned int read_position;
+  char ch;
+} Lexer;
+
 char *read_file(const char *path);
-Token *token_create(char type, char literal);
+Token *token_create(unsigned int type, char literal);
+Token *token_next(Lexer *l);
+Lexer *lexer_new(char *input);
+void *read_char(Lexer *l);
 
 #endif // !
