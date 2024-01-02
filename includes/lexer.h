@@ -5,7 +5,6 @@
 enum {
   T_IDEN,
   T_INT,
-  T_NULL,
   T_ASSIGN,
   T_PLUS,
   T_STRING,
@@ -16,7 +15,8 @@ enum {
   T_LBRACE,
   T_RBRACE,
   T_FUNCTION,
-  T_LET
+  T_LET,
+  T_NULL,
 };
 
 typedef struct Token {
@@ -33,8 +33,8 @@ typedef struct Lexer {
 
 char *read_file(const char *path);
 Token *token_create(unsigned int type, char literal);
-Token *token_next(Lexer *l);
 Lexer *lexer_new(char *input);
 void *read_char(Lexer *l);
 
+Token *token_next(char ch);
 #endif // !

@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,65 +39,38 @@ char *read_file(const char *path) {
 }
 
 Token *token_create(unsigned int type, char literal) {
-  Token *token;
+  Token *token = (Token *)malloc(sizeof(Token));
   token->type = type;
   token->literal = literal;
   return token;
 }
 
-Lexer *lexer_new(char *input) {
-
-  Lexer *l = (Lexer *)malloc(sizeof(Lexer));
-
-  if (!l)
-    return NULL;
-
-  l->input = input;
-  read_char(l);
-  return l;
-}
-
-void *read_char(Lexer *l) {
-
-  if (l->read_position >= sizeof(&l->input) / sizeof(l->input[0]))
-    l->ch = 0;
-  else
-    l->ch = l->input[l->read_position];
-
-  l->position = l->read_position;
-  l->read_position++;
-
-  return l;
-}
-
-Token *token_next(Lexer *l) {
-
+Token *token_next(char ch) {
   Token *token = (Token *)malloc(sizeof(Token));
-
-  switch (l->ch) {
+  switch (ch) {
   case '=':
-    token = token_create(T_ASSIGN, l->ch);
+    token = token_create(T_ASSIGN, ch);
     break;
   case ';':
-    token = token_create(T_SEMICOLON, l->ch);
+    token = token_create(T_SEMICOLON, ch);
     break;
   case '(':
-    token = token_create(T_LPAREN, l->ch);
+    token = token_create(T_LPAREN, ch);
     break;
   case ')':
-    token = token_create(T_RPAREN, l->ch);
+    token = token_create(T_RPAREN, ch);
     break;
   case ',':
-    token = token_create(T_COMMA, l->ch);
+    token = token_create(T_COMMA, ch);
     break;
   case '+':
-    token = token_create(T_PLUS, l->ch);
+    token = token_create(T_PLUS, ch);
     break;
   case '{':
-    token = token_create(T_LBRACE, l->ch);
+    token = token_create(T_LBRACE, ch);
     break;
   case '}':
-    token = token_create(T_RBRACE, l->ch);
+    token = token_create(T_RBRACE, ch);
     break;
 
   default:
@@ -104,8 +78,6 @@ Token *token_next(Lexer *l) {
     token->type = T_NULL;
     break;
   }
-
-  read_char(l);
 
   return token;
 };
