@@ -1,4 +1,3 @@
-#include <ctype.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,7 +71,7 @@ Token *token_next(char ch) {
   case '}':
     token = token_create(T_RBRACE, ch);
     break;
-
+    
   default:
     token->literal = 0;
     token->type = T_NULL;

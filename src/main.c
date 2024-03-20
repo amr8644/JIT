@@ -17,17 +17,8 @@ int main(int argc, char *argv[]) {
   size_t size = sizeof(&str) / sizeof(str[0]);
 
   for (size_t i = 0; str[i] != '\0'; i++) {
-    Token *t =token_next(str[i]);
-    token[i] = t;
     printf("%c", str[i]);
   }
-
-for (size_t i = 0; i < sizeof(token) / sizeof(token[0])  ; i++) {
-    printf("%c", token[i]->type);
-  }
-
-
-
 
   return 0;
 }

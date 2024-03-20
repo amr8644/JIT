@@ -1,0 +1,1 @@
+/sbin/cc -rdynamic CMakeFiles/rune.dir/src/lexer.c.o CMakeFiles/rune.dir/src/main.c.o -o rune 
